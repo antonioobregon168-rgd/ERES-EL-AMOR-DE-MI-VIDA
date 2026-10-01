@@ -1,0 +1,674 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Suri ❤️💜</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --red: #ff3864;
+  --purple: #a45cff;
+  --bg: #100b19;
+  --text: #fff5fb;
+  --muted: #c5b5d1;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  overflow-x: hidden;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background:
+    radial-gradient(ellipse at 10% 15%, #a51d5635, transparent 50%),
+    radial-gradient(ellipse at 90% 75%, #7222bd38, transparent 50%);
+}
+button, input { font: inherit; }
+button { cursor: pointer; }
+.hidden { display: none !important; }
+
+.screen {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 24px;
+}
+.panel {
+  width: min(100%, 600px);
+  padding: 38px 30px;
+  text-align: center;
+  border: 1px solid #ffffff20;
+  border-radius: 28px;
+  background: #ffffff09;
+  box-shadow: 0 25px 90px #00000050;
+  backdrop-filter: blur(15px);
+}
+.heart-icon {
+  font-size: 65px;
+  filter: drop-shadow(0 0 20px #ff477b77);
+  animation: heartbeat 1.8s infinite;
+}
+@keyframes heartbeat {
+  50% { transform: scale(1.1); }
+}
+h1, h2 { font-family: 'Playfair Display', serif; }
+h1 {
+  font-size: clamp(36px, 8vw, 58px);
+  margin: 15px 0;
+  background: linear-gradient(100deg, #ff9ab7, #ff3864, #b68aff);
+  color: transparent;
+  background-clip: text;
+}
+h2 { font-size: clamp(30px, 6vw, 48px); }
+p { line-height: 1.7; }
+.muted { color: var(--muted); }
+
+input {
+  width: 100%;
+  padding: 16px;
+  margin: 16px 0 12px;
+  background: #160f22;
+  color: white;
+  border: 1px solid #ffffff25;
+  border-radius: 13px;
+  text-align: center;
+  outline: none;
+}
+input:focus { border-color: var(--purple); }
+
+.primary {
+  border: none;
+  padding: 15px 25px;
+  border-radius: 50px;
+  background: linear-gradient(110deg, #f43d67, #9144db);
+  color: white;
+  font-weight: 700;
+  box-shadow: 0 8px 30px #c42b6730;
+  transition: .2s;
+}
+.primary:hover { transform: translateY(-2px); }
+.error {
+  min-height: 25px;
+  color: #ff91ae;
+  font-size: 13px;
+}
+
+#gameScreen {
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 45px;
+}
+.game-header {
+  text-align: center;
+  width: min(100%, 850px);
+}
+.game-header h2 { margin: 8px 0; }
+.score {
+  font-size: 21px;
+  font-weight: 700;
+  margin: 20px;
+}
+.score strong {
+  color: #ff8bb1;
+  font-size: 30px;
+}
+.progress {
+  width: min(100%, 400px);
+  height: 9px;
+  margin: 0 auto 22px;
+  border-radius: 30px;
+  background: #ffffff17;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0;
+  background: linear-gradient(90deg, var(--red), var(--purple));
+  transition: width .25s;
+}
+.game-box {
+  position: relative;
+  width: min(100%, 850px);
+  border: 1px solid #ffffff20;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #171023;
+  box-shadow: 0 20px 70px #00000050;
+}
+canvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  touch-action: none;
+  cursor: crosshair;
+}
+.game-help {
+  color: var(--muted);
+  text-align: center;
+  margin: 20px 0 50px;
+  font-size: 14px;
+}
+
+#finalScreen {
+  padding: 65px 18px;
+}
+.final-content {
+  width: min(100%, 850px);
+  margin: auto;
+}
+.section-heading {
+  text-align: center;
+  margin: 20px 0 45px;
+}
+.section-heading span {
+  color: #ff9bb9;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 4px;
+}
+.section-heading .congrats {
+  font-size: clamp(30px, 7vw, 48px);
+  color: #ff9ab7;
+  font-family: 'Playfair Display', serif;
+  margin: 20px 0;
+}
+.section-heading .message {
+  color: #e6d5ed;
+  font-size: 19px;
+}
+.letter {
+  border: 1px solid #ffffff18;
+  background: #ffffff08;
+  padding: clamp(25px, 6vw, 60px);
+  border-radius: 25px;
+  color: #e9dfee;
+  line-height: 2;
+  font-size: 16px;
+  box-shadow: 0 20px 80px #00000030;
+}
+.letter p { margin: 0 0 24px; }
+.letter .greeting {
+  font: 25px 'Playfair Display', serif;
+  color: #ff91b4;
+}
+.letter .sign {
+  text-align: center;
+  font: 23px 'Playfair Display', serif;
+  color: #d6a1ff;
+  margin-top: 40px;
+}
+.video-section {
+  text-align: center;
+  margin-top: 100px;
+  padding-bottom: 60px;
+}
+.video-frame {
+  border-radius: 22px;
+  border: 1px solid #ffffff22;
+  padding: 10px;
+  background: linear-gradient(130deg, #ff38642c, #a45cff2c);
+  margin-top: 30px;
+}
+video {
+  width: 100%;
+  display: block;
+  background: #09060d;
+  border-radius: 15px;
+}
+footer {
+  padding: 30px 15px;
+  text-align: center;
+  color: #b6a4c6;
+  border-top: 1px solid #ffffff15;
+}
+@media(max-width: 600px) {
+  .panel { padding: 30px 20px; }
+  .letter { font-size: 15px; line-height: 1.85; }
+  #gameScreen { padding: 35px 12px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- CONTRASEÑA -->
+<section class="screen" id="passwordScreen">
+  <div class="panel">
+    <div class="heart-icon">💘</div>
+    <p class="muted">UNA SORPRESA ESPECIAL</p>
+    <h1>Hola, Suri</h1>
+    <p class="muted">
+      Hay una pequeña aventura que preparé especialmente para ti.
+      Pero primero, necesito que descubras la contraseña.
+    </p>
+    <form id="passwordForm">
+      <input id="passwordInput" type="password"
+        placeholder="Escribe la contraseña..." autocomplete="off">
+      <button class="primary" type="submit">Desbloquear ❤️</button>
+    </form>
+    <div class="error" id="passwordError"></div>
+  </div>
+</section>
+
+<!-- JUEGO -->
+<section class="screen hidden" id="gameScreen">
+  <div class="game-header">
+    <p class="muted">UNA MISIÓN DE AMOR</p>
+    <h2>¡Apunta al corazón! 💘</h2>
+    <p class="muted">Ayúdame a completar nuestros 12 corazones.</p>
+    <div class="score">❤️ <strong id="score">0</strong> / 12</div>
+    <div class="progress">
+      <div class="progress-bar" id="progress"></div>
+    </div>
+  </div>
+
+  <div class="game-box">
+    <canvas id="gameCanvas" width="850" height="470"
+      aria-label="Minijuego de arco y flechas">
+    </canvas>
+  </div>
+  <p class="game-help">
+    🏹 Apunta y toca o haz clic para lanzar una flecha.
+    El corazón se mueve: ¡intenta alcanzarlo!
+  </p>
+</section>
+
+<!-- FINAL -->
+<section id="finalScreen" class="hidden">
+  <div class="final-content">
+
+    <div class="section-heading">
+      <div class="heart-icon">💞</div>
+      <p class="congrats">¡Bien hecho, mi vida!</p>
+      <p class="message">Eres increíble. ❤️💜</p>
+      <h1>12 corazones</h1>
+      <p class="muted">Mi corazón es todo tuyo.</p>
+      <p class="muted">Y todavía tengo algo más que expresarte...</p>
+    </div>
+
+    <div class="section-heading">
+      <span>Desde mi corazón</span>
+      <h2>Una carta para ti</h2>
+    </div>
+
+    <article class="letter">
+      <p class="greeting">Para ti, Suri. ❤️💜</p>
+
+      <p>No sé si algún día encuentre las palabras exactas para explicarte todo lo que siento por ti, pero quiero intentarlo, porque si hay algo que tengo muy claro es que te amo muchísimo y que, entre tantas cosas que existen en este mundo, tú te has convertido en una de las más bonitas de mi vida.</p>
+
+      <p>Te amo por tu forma de ser, por esos pequeños detalles que quizá para ti no significan demasiado, pero que para mí hacen toda la diferencia. Te amo por tu sonrisa, por tu manera de hablar, por cómo puedes hacer que un día normal se convierta en uno especial sin siquiera proponértelo. Te amo por cada conversación, por cada momento que compartimos, por cada risa que me sacas y por todas esas pequeñas cosas que, sin darme cuenta, se han vuelto parte de mis días favoritos.</p>
+
+      <p>A veces me pongo a pensar en lo bonito que es haberte conocido. Entre tantas personas, entre tantos caminos y tantas casualidades, tuve la suerte de coincidir contigo. Y no sabes cuánto agradezco eso. Porque desde que llegaste a mi vida, muchas cosas adquirieron un significado diferente. Ahora hay canciones que me recuerdan a ti, lugares que me hacen pensar en nosotros y momentos en los que simplemente quisiera tenerte cerca para contarte cualquier tontería o hablar de todo y de nada.</p>
+
+      <p>Me encanta pensar en un futuro en el que sigamos compartiendo momentos, descubriendo cosas nuevas, cumpliendo sueños y creando recuerdos que algún día podamos mirar con una sonrisa. No quiero que lo nuestro se trate únicamente de los momentos bonitos, también quiero estar presente en los días difíciles, cuando las cosas no salgan como esperamos, cuando tengamos dudas o cuando simplemente necesitemos un poco de compañía. Porque amarte no significa querer solamente los días perfectos, sino valorar lo que somos incluso cuando la vida no es tan sencilla.</p>
+
+      <p>Quiero que sepas que para mí no eres una persona más. Eres esa persona en la que pienso cuando escucho una canción bonita, aquella a quien quisiera contarle primero las cosas que me pasan y con quien me gustaría compartir incluso los momentos más simples. No necesito grandes planes ni regalos extraordinarios para sentirme feliz contigo. A veces, lo único que quiero es hablar contigo, saber cómo estuvo tu día, escuchar tu voz o simplemente disfrutar de tu compañía.</p>
+
+      <p>Y si alguna vez me preguntaran por qué te amo tanto, probablemente no sabría dar una respuesta breve. ¿Cómo se explica algo que se siente tan grande? ¿Cómo resumo en unas cuantas palabras todo lo que significas para mí? No podría hacerlo, porque te amo por muchísimas razones, incluso por algunas que todavía no sé explicar. Te amo por lo que eres y por cómo me haces sentir, por lo que hemos vivido y por todas las cosas bonitas que todavía nos quedan por descubrir.</p>
+
+      <p>No quiero prometerte un mundo perfecto, porque sé que no existe. Pero sí quiero ofrecerte mi cariño sincero, mis ganas de seguir construyendo algo bonito contigo, mi paciencia, mi apoyo y la intención de hacerte sentir querida. Quiero aprender de ti, crecer a tu lado y seguir encontrando nuevas razones para enamorarme de esa persona tan especial que eres.</p>
+
+      <p>Y entre todas las cosas que podría decirte, hay una que nunca quiero que olvides: me siento muy afortunado de tenerte en mi vida. Si pudiera volver a todos esos momentos que nos llevaron a conocernos, elegiría vivirlos otra vez, porque de alguna manera todos esos caminos me llevaron a ti.</p>
+
+      <p>Te amo, Suri. Te amo muchísimo, más de lo que a veces consigo expresar y más de lo que cabe en esta pequeña dedicatoria. Y si pudiera convertir todo lo que siento en algo que pudieras ver, seguramente sería un universo entero lleno de luces rojas y moradas, porque ni siquiera el cielo más hermoso me parecería suficiente para representar lo mucho que significas para mí.</p>
+
+      <p class="sign">Con todo mi amor, para ti. ❤️💜</p>
+    </article>
+
+    <div class="video-section">
+      <span class="muted">Y AHORA, UNA ÚLTIMA SORPRESA</span>
+      <h2>Un recuerdo de nosotros, mi amor 💞</h2>
+      <p class="muted">
+        Un pequeño pedacito de nuestra historia,
+        guardado para volver a vivirlo.
+      </p>
+      <div class="video-frame">
+        <video controls playsinline preload="metadata">
+          <source src="video.mp4" type="video/mp4">
+          Tu navegador no puede reproducir este video.
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Hecho con muchísimo amor <span style="color:#ff6389">♥</span> para Suri.
+</footer>
+
+<script>
+// CONTRASEÑA
+const passwordScreen = document.getElementById("passwordScreen");
+const gameScreen = document.getElementById("gameScreen");
+const finalScreen = document.getElementById("finalScreen");
+const passwordForm = document.getElementById("passwordForm");
+const passwordInput = document.getElementById("passwordInput");
+const passwordError = document.getElementById("passwordError");
+
+passwordForm.addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  if (passwordInput.value.trim().toUpperCase() ===
+      "ERES EL AMOR DE MI VIDA") {
+    passwordScreen.classList.add("hidden");
+    gameScreen.classList.remove("hidden");
+    startGame();
+  } else {
+    passwordError.textContent =
+      "Esa no es la contraseña, inténtalo otra vez ❤️";
+    passwordInput.value = "";
+  }
+});
+
+// JUEGO 2D
+const canvas = document.getElementById("gameCanvas");
+const ctx = canvas.getContext("2d");
+const scoreElement = document.getElementById("score");
+const progress = document.getElementById("progress");
+
+let score = 0;
+let arrows = [];
+let effects = [];
+let running = false;
+let gameTime = 0;
+let lastShot = 0;
+let target = { x: 650, y: 225, r: 29 };
+
+function heartPath(x, y, size) {
+  ctx.beginPath();
+  ctx.moveTo(x, y + size * .3);
+  ctx.bezierCurveTo(
+    x - size * 1.4, y - size * .7,
+    x - size * 1.1, y - size * 1.5,
+    x, y - size * .75
+  );
+  ctx.bezierCurveTo(
+    x + size * 1.1, y - size * 1.5,
+    x + size * 1.4, y - size * .7,
+    x, y + size * .3
+  );
+  ctx.closePath();
+}
+
+function drawCharacter(x, y, isSuri) {
+  // Cuerpo
+  ctx.fillStyle = isSuri ? "#a64cce" : "#24202e";
+  ctx.beginPath();
+  ctx.ellipse(x, y + 65, 34, 48, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Cuello
+  ctx.fillStyle = "#d99c81";
+  ctx.fillRect(x - 10, y + 18, 20, 23);
+
+  // Cabello detrás de la cara
+  ctx.fillStyle = isSuri ? "#7921ce" : "#211811";
+  ctx.beginPath();
+  ctx.ellipse(x, y, 43, 47, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Cara
+  ctx.fillStyle = "#d99c81";
+  ctx.beginPath();
+  ctx.ellipse(x, y + 3, 32, 39, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Cabello frontal
+  ctx.fillStyle = isSuri ? "#922ee8" : "#211811";
+  ctx.beginPath();
+  ctx.arc(x, y - 12, 37, Math.PI, Math.PI * 2);
+  ctx.quadraticCurveTo(x + 25, y - 17, x + 15, y - 2);
+  ctx.quadraticCurveTo(x, y - 24, x - 16, y - 3);
+  ctx.quadraticCurveTo(x - 28, y - 18, x - 37, y);
+  ctx.fill();
+
+  // Ojos
+  ctx.fillStyle = "#211521";
+  ctx.beginPath();
+  ctx.ellipse(x - 12, y + 5, 3, 2, 0, 0, Math.PI * 2);
+  ctx.ellipse(x + 12, y + 5, 3, 2, 0, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Sonrisa
+  ctx.strokeStyle = "#873e52";
+  ctx.lineWidth = 2;
+  ctx.beginPath();
+  ctx.arc(x, y + 16, 8, .15, Math.PI - .15);
+  ctx.stroke();
+
+  if (isSuri) {
+    // Arco
+    ctx.strokeStyle = "#d8b1ff";
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.arc(x + 45, y + 42, 37, -1.1, 1.1);
+    ctx.stroke();
+
+    ctx.strokeStyle = "#ffe5f3";
+    ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    ctx.moveTo(x + 32, y + 8);
+    ctx.lineTo(x + 67, y + 75);
+    ctx.stroke();
+  } else {
+    ctx.fillStyle = "#ffb0ca";
+    ctx.beginPath();
+    ctx.arc(x - 40, y + 20, 5, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function drawScene() {
+  const w = canvas.width;
+  const h = canvas.height;
+
+  const bg = ctx.createLinearGradient(0, 0, 0, h);
+  bg.addColorStop(0, "#21112d");
+  bg.addColorStop(1, "#3c183b");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, w, h);
+
+  // Estrellas
+  for (let i = 0; i < 38; i++) {
+    const x = (i * 137 + 31) % w;
+    const y = (i * 83 + 24) % 280;
+    ctx.fillStyle = "#ffffff55";
+    ctx.beginPath();
+    ctx.arc(x, y, (i % 3) + 1, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  // Suelo
+  ctx.fillStyle = "#28172f";
+  ctx.fillRect(0, 370, w, 100);
+  ctx.fillStyle = "#5a2859";
+  ctx.fillRect(0, 370, w, 4);
+
+  // Personajes
+  drawCharacter(155, 275, true);
+  drawCharacter(715, 275, false);
+
+  // Poste decorativo
+  ctx.fillStyle = "#9c6b59";
+  ctx.fillRect(700, 335, 30, 40);
+  ctx.fillStyle = "#d19a7a";
+  ctx.fillRect(688, 335, 54, 8);
+
+  // Corazón móvil
+  ctx.save();
+  ctx.shadowColor = "#ff397a";
+  ctx.shadowBlur = 24;
+  heartPath(target.x, target.y, target.r);
+  ctx.fillStyle = "#ff477d";
+  ctx.fill();
+  ctx.restore();
+
+  // Centro brillante
+  ctx.fillStyle = "#ffe6f0";
+  ctx.beginPath();
+  ctx.arc(target.x, target.y - 5, 5, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Flechas
+  arrows.forEach(a => {
+    ctx.save();
+    ctx.translate(a.x, a.y);
+    ctx.rotate(a.angle);
+    ctx.strokeStyle = "#f5d7ff";
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(-18, 0);
+    ctx.lineTo(15, 0);
+    ctx.stroke();
+
+    ctx.fillStyle = "#d9a4ff";
+    ctx.beginPath();
+    ctx.moveTo(17, 0);
+    ctx.lineTo(8, -5);
+    ctx.lineTo(8, 5);
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  });
+
+  // Efectos de acierto
+  effects.forEach(e => {
+    ctx.globalAlpha = Math.max(0, e.life / 35);
+    ctx.fillStyle = "#ff9fc3";
+    ctx.font = "bold 23px sans-serif";
+    ctx.fillText("+1 ❤️", e.x, e.y);
+    ctx.globalAlpha = 1;
+  });
+}
+
+function updateScore() {
+  scoreElement.textContent = score;
+  progress.style.width = (score / 12 * 100) + "%";
+}
+
+function startGame() {
+  score = 0;
+  arrows = [];
+  effects = [];
+  gameTime = 0;
+  target = { x: 650, y: 225, r: 29 };
+  running = true;
+  updateScore();
+  requestAnimationFrame(animate);
+}
+
+function animate() {
+  if (!running) return;
+
+  gameTime += 0.025;
+
+  // Movimiento horizontal y vertical
+  target.x = 650 + Math.sin(gameTime * 1.35) * 105;
+  target.y = 225 + Math.sin(gameTime * 2.1) * 75;
+
+  // Movimiento y detección de impactos
+  for (let i = arrows.length - 1; i >= 0; i--) {
+    const a = arrows[i];
+    a.x += a.vx;
+    a.y += a.vy;
+
+    const distance = Math.hypot(
+      a.x - target.x,
+      a.y - target.y
+    );
+
+    if (distance < target.r + 8) {
+      arrows.splice(i, 1);
+      score++;
+
+      effects.push({
+        x: target.x - 25,
+        y: target.y - 35,
+        life: 35
+      });
+
+      updateScore();
+
+      if (score >= 12) {
+        running = false;
+        drawScene();
+        setTimeout(showFinal, 900);
+        return;
+      }
+      continue;
+    }
+
+    if (a.x > canvas.width || a.x < 0 ||
+        a.y > canvas.height || a.y < 0) {
+      arrows.splice(i, 1);
+    }
+  }
+
+  // Animación de puntos
+  effects.forEach(e => {
+    e.y -= 1;
+    e.life--;
+  });
+  effects = effects.filter(e => e.life > 0);
+
+  drawScene();
+  requestAnimationFrame(animate);
+}
+
+// Disparo hacia la posición seleccionada
+function shoot(event) {
+  if (!running || score >= 12) return;
+
+  const now = Date.now();
+  if (now - lastShot < 450) return;
+  lastShot = now;
+
+  const rect = canvas.getBoundingClientRect();
+  const clickX = (event.clientX - rect.left) *
+    (canvas.width / rect.width);
+  const clickY = (event.clientY - rect.top) *
+    (canvas.height / rect.height);
+
+  const startX = 210;
+  const startY = 320;
+
+  const dx = clickX - startX;
+  const dy = clickY - startY;
+  const distance = Math.hypot(dx, dy);
+
+  if (distance < 10) return;
+
+  const speed = 12;
+
+  arrows.push({
+    x: startX,
+    y: startY,
+    vx: dx / distance * speed,
+    vy: dy / distance * speed,
+    angle: Math.atan2(dy, dx)
+  });
+}
+
+canvas.addEventListener("pointerdown", shoot);
+
+// DESBLOQUEAR FINAL
+function showFinal() {
+  gameScreen.classList.add("hidden");
+  finalScreen.classList.remove("hidden");
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+</script>
+
+</body>
+</html>
