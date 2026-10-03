@@ -295,6 +295,8 @@ footer {
       <h1>12 corazones</h1>
       <p class="muted">Mi corazón es todo tuyo.</p>
       <p class="muted">Y todavía tengo algo más que expresarte...</p>
+      <button class="primary" id="musicButton" type="button" aria-pressed="false">▶ Reproducir canción</button>
+      <p class="muted" style="font-size:13px; margin-top:8px">Only You ❤️</p>
     </div>
 
     <div class="section-heading">
@@ -347,6 +349,11 @@ footer {
   Hecho con muchísimo amor <span style="color:#ff6389">♥</span> para Suri.
 </footer>
 
+<audio id="backgroundMusic" loop preload="auto">
+  <source src="only-you.mp3" type="audio/mpeg">
+  Tu navegador no puede reproducir este audio.
+</audio>
+
 <script>
 // CONTRASEÑA
 const passwordScreen = document.getElementById("passwordScreen");
@@ -355,6 +362,26 @@ const finalScreen = document.getElementById("finalScreen");
 const passwordForm = document.getElementById("passwordForm");
 const passwordInput = document.getElementById("passwordInput");
 const passwordError = document.getElementById("passwordError");
+const backgroundMusic = document.getElementById("backgroundMusic");
+const musicButton = document.getElementById("musicButton");
+
+function updateMusicButton() {
+  const playing = !backgroundMusic.paused;
+  musicButton.textContent = playing ? "⏸ Pausar canción" : "▶ Reproducir canción";
+  musicButton.setAttribute("aria-pressed", String(playing));
+}
+
+musicButton.addEventListener("click", async function() {
+  if (backgroundMusic.paused) {
+    try { await backgroundMusic.play(); } catch (error) {
+      musicButton.textContent = "No se pudo reproducir; vuelve a tocar";
+      return;
+    }
+  } else {
+    backgroundMusic.pause();
+  }
+  updateMusicButton();
+});
 
 passwordForm.addEventListener("submit", function(e) {
   e.preventDefault();
@@ -573,9 +600,9 @@ function animate() {
 
   gameTime += 0.025;
 
-  // Movimiento horizontal y vertical
-  target.x = 650 + Math.sin(gameTime * 1.35) * 105;
-  target.y = 225 + Math.sin(gameTime * 2.1) * 75;
+  // Movimiento más dinámico para aumentar un poco la dificultad
+  target.x = 650 + Math.sin(gameTime * 1.8) * 125;
+  target.y = 225 + Math.sin(gameTime * 2.7) * 90;
 
   // Movimiento y detección de impactos
   for (let i = arrows.length - 1; i >= 0; i--) {
@@ -667,6 +694,8 @@ function showFinal() {
   gameScreen.classList.add("hidden");
   finalScreen.classList.remove("hidden");
   window.scrollTo({ top: 0, behavior: "smooth" });
+  backgroundMusic.volume = 0.35;
+  backgroundMusic.play().then(updateMusicButton).catch(updateMusicButton);
 }
 </script>
 
